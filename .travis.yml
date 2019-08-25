@@ -2,7 +2,7 @@ language: java
 
 env:
   global:
-    - CODECOV_TOKEN="d81ad511-0dcd-411a-a68e-851f95c53ae6"
+    - CODECOV_TOKEN=d81ad511-0dcd-411a-a68e-851f95c53ae6
 
 sudo: false
 
