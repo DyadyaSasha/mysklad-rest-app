@@ -16,7 +16,8 @@ public class RestConfig extends ResourceConfig{
 
     public RestConfig(){
         /**
-         * указываем пакет, в котором находятся классы, обрабатывающие rest запросы, а также пакет, необходимый для работы swagger
+         * указываем пакет, в котором находятся классы, обрабатывающие rest запросы, а также пакет,
+         * необходимый для работы swagger
          */
         packages("io.swagger.jaxrs.listing", "app.api.rest");
 //        packages( "app.api.rest");

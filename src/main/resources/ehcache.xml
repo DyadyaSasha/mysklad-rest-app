@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
+
+    <defaultCache
+            maxEntriesLocalHeap="500"
+            eternal="false"
+            timeToIdleSeconds="360"
+            timeToLiveSeconds="360"
+            memoryStoreEvictionPolicy="LRU"
+    />
+
+
+    <cache name="product_region"
+           maxEntriesLocalHeap="500"
+           eternal="false"
+           timeToIdleSeconds="360"
+           timeToLiveSeconds="360"
+           memoryStoreEvictionPolicy="LRU"
+    />
+
+
+    <cache name="purchase_region"
+           maxEntriesLocalHeap="500"
+           eternal="false"
+           timeToIdleSeconds="360"
+           timeToLiveSeconds="360"
+           memoryStoreEvictionPolicy="LRU"
+    />
+
+
+    <cache name="selling_region"
+           maxEntriesLocalHeap="500"
+           eternal="false"
+           timeToIdleSeconds="360"
+           timeToLiveSeconds="360"
+           memoryStoreEvictionPolicy="LRU"
+    />
+
+
+    <cache name="productByName_query_region"
+           maxEntriesLocalHeap="500"
+           eternal="false"
+           timeToIdleSeconds="360"
+           timeToLiveSeconds="360"
+           memoryStoreEvictionPolicy="LRU"
+    />
+
+
+
+
+</ehcache>

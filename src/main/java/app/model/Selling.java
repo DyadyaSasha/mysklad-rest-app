@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
@@ -20,6 +21,8 @@ import java.time.LocalDate;
         @Index(name = "selling_date_idx", columnList = "selling_date")
 })
 @Check(constraints = "product_count > 0 AND product_price >= 0")
+@Cacheable
+@org.hibernate.annotations.Cache(region = "selling_region", usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Selling {
 
     @Id

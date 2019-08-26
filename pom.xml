@@ -16,6 +16,7 @@
         <jersey.version>2.29</jersey.version>
         <h2.version>1.4.199</h2.version>
         <hibernate.version>5.4.4.Final</hibernate.version>
+        <hibernate-ehcache.version>5.2.13.Final</hibernate-ehcache.version>
         <lombok.version>1.18.8</lombok.version>
         <swagger-jersey2.version>1.5.22</swagger-jersey2.version>
         <jackson-datatype-jsr.version>2.10.0.pr1</jackson-datatype-jsr.version>
@@ -112,6 +113,7 @@
             <version>${hibernate.version}</version>
         </dependency>
 
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jersey2-jaxrs</artifactId>
@@ -171,6 +173,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
@@ -210,6 +213,27 @@
                 </configuration>
             </plugin>
 
+            <!--
+            mvn checkstyle:check - для отображения замечаний по оформлению кода в терминале(консоли)
+            mvn checkstyle:checkstyle - для отображения замечаний по оформлению кода на веб-странице
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <failOnViolation>false</failOnViolation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <!-- https://www.baeldung.com/jacoco -->
                 <groupId>org.jacoco</groupId>
@@ -243,8 +267,6 @@
                             <!--<goal>report</goal>-->
                         <!--</goals>-->
                     <!--</execution>-->
-
-
 
                     <!--<execution>-->
                         <!--<id>jacoco-check</id>-->

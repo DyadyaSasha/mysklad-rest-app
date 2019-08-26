@@ -2,9 +2,9 @@ package app.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
@@ -18,6 +18,18 @@ import java.util.Set;
  * {@link Check} будет работать (генирировать соответствующую команду при создании схемы) только если определить эту аннотацию !над классом!
  */
 @Check(constraints = "count >= 0")
+/**
+ * В кэше второго уровня сущности хранятся следующим образом:
+ * в качестве ключа в кэше используется ключ сущности (id)
+ * в качестве значения ключа кэша используется список, в котором хранятся:
+ * значения полей(неассоативных - без связей) (transient поля кэшом игнорируются)
+ * id сущностей, которые имеют *ToOne ассоциации (ManyToOne, OneToOne - ссылаются на одну сущность в другой таблице)
+ * коллекции не хранятся в кэше, но это можно исправить если добавить аннотации {@link Cacheable} и
+ * {@link org.hibernate.annotations.Cache} над коллекцией - тогда коллекции будут хранится в своём регионе
+ * (для сущностей, хранящихся в БД, в колллекциях будут представляться ключи этих сущностей)
+ */
+@Cacheable
+@org.hibernate.annotations.Cache(region = "product_region", usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Product {
 
     @Id

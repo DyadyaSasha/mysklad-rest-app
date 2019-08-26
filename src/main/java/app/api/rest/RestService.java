@@ -61,7 +61,7 @@ public class RestService {
     })
     @Path("")
     @OPTIONS
-    public Response getAllowedMethods(){
+    public Response getAllowedMethods() {
         Response response = Response.status(Response.Status.OK)
                 .allow("GET", "POST", "OPTIONS")
                 .build();
@@ -115,7 +115,8 @@ public class RestService {
                         .where(builder.and(builder.lessThanOrEqualTo(purchaseRoot.get("purchaseDate"), reportDate),
                                 builder.equal(purchaseRoot.get("product").get("name"), name)))
                         .orderBy(builder.asc(purchaseRoot.get("purchaseDate")))
-                ).list();
+                )
+                        .list();
 
 
                 builder = session.getCriteriaBuilder();
@@ -130,7 +131,8 @@ public class RestService {
                         )
                                 .where(builder.and(builder.lessThanOrEqualTo(sellingRoot.get("sellingDate"), reportDate),
                                         builder.equal(sellingRoot.get("product").get("name"), name)))
-                ).getSingleResult();
+                )
+                        .getSingleResult();
 
                 long sellingProductCount = sellingCountAndSum.get(0, Long.class);
                 double sellingProductFullPrice = sellingCountAndSum.get(1, Double.class);
@@ -193,7 +195,7 @@ public class RestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createProduct(
             @ApiParam(value = "Объект товара (указывается только наименование товара)", required = true)
-            Product product
+                    Product product
     ) {
         HttpResponseBody responseBody = new HttpResponseBody();
 
@@ -203,11 +205,13 @@ public class RestService {
 
             transaction = session.beginTransaction();
 
-            List<Product> productFromDb = session.createQuery("from Product p where p.name=:product_name", Product.class)
+            Product productFromDb = session.createQuery("from Product p where p.name=:product_name", Product.class)
                     .setParameter("product_name", product.getName())
-                    .list();
+                    .setCacheable(true)
+                    .setCacheRegion("productByName_query_region")
+                    .uniqueResult();
 
-            if (productFromDb == null || productFromDb.isEmpty()) {
+            if (productFromDb == null) {
                 session.save(product);
                 responseBody.setMessage("Product [" + product.getName() + "] saved");
                 responseBody.setCode(Response.Status.OK.getStatusCode());
@@ -250,7 +254,7 @@ public class RestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response buyProduct(
             @ApiParam(value = "Список закупленных товаров", required = true)
-            PurchasesRequestModel requestModel
+                    PurchasesRequestModel requestModel
     ) {
 
         List<Purchase> purchases = requestModel.getPurchases();
@@ -345,7 +349,7 @@ public class RestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response sellProduct(
             @ApiParam(value = "Список проданных товаров", required = true)
-            SellingsRequestModel requestModel
+                    SellingsRequestModel requestModel
     ) {
 
         List<Selling> sellings = requestModel.getSellings();

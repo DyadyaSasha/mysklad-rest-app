@@ -33,8 +33,16 @@ public class HibernateHelper {
         hibernateConnectionProperties.put(Environment.URL, Constants.URL);
         hibernateConnectionProperties.put(Environment.USER, Constants.USER);
         hibernateConnectionProperties.put(Environment.PASS, Constants.PASS);
+        hibernateConnectionProperties.put(Environment.CACHE_REGION_FACTORY, Constants.CACHE_REGION_FACTORY);
+        hibernateConnectionProperties.put(Environment.USE_SECOND_LEVEL_CACHE, Constants.USE_SECOND_LEVEL_CACHE);
+        hibernateConnectionProperties.put(Environment.USE_QUERY_CACHE, Constants.USE_QUERY_CACHE);
+        /**
+         * FOR DEBUG:
+         */
         hibernateConnectionProperties.put(Environment.SHOW_SQL, Constants.SHOW_SQL);
         hibernateConnectionProperties.put(Environment.FORMAT_SQL, Constants.FORMAT_SQL);
+        hibernateConnectionProperties.put(Environment.GENERATE_STATISTICS, Constants.GENERATE_STATISTICS);
+        hibernateConnectionProperties.put(Environment.USE_STRUCTURED_CACHE, Constants.USE_STRUCTURED_CACHE);
         /**
          * автоматическая работа со схемой(генерация схемы) происходит, когда инициализируется {@link org.hibernate.SessionFactory}
          */
