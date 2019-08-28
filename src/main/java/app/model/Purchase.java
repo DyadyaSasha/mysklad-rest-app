@@ -11,12 +11,26 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Check;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @ApiModel(description = "Закупка товара")
+/**
+ * https://www.concretepage.com/hibernate/fetchprofile_hibernate_annotation
+ * помечаем поля-ассоциации, чтобы в будущем изменить их FetchType на EAGER(Fetch Type изменится на некотором блоке(части) кода. обозначенного с помощью методов:
+ * session.enableFetchProfile("fetch_profile_name"); session.disableFetchProfile("fetch_profile_name");)
+ */
+@FetchProfile(
+        name = "purchase_product",
+        fetchOverrides = {
+                @FetchProfile.FetchOverride(entity = Purchase.class, association = "product", mode = FetchMode.JOIN)
+        }
+)
+
 @Entity
 @Table(name = "purchase", indexes = {
         @Index(name = "purchase_date_idx", columnList = "purchase_date")

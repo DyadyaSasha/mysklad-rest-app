@@ -20,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.EntityGraph;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
@@ -159,11 +160,18 @@ public class RestServiceTest extends JerseyTest {
         try (Session session = factory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
+            /**
+             * с помощью Fetch Profile можно выставить на время запроса FetchType равным EAGER у тех полей-ассоциаций, у которых FetchType изначально равен LAZY
+             */
+            session.enableFetchProfile("purchase_product");
             purchaseFromDb = session.createQuery("from Purchase", Purchase.class).getSingleResult();
             /**
              * подтягиваем "ленивый" объект из БД(purchaseFromDb.getProduct() вернёт !proxy! объект для класса {@link Product}: app.model.Product$HibernateProxy)
              */
-            Hibernate.initialize(purchaseFromDb.getProduct());
+//            Hibernate.initialize(purchaseFromDb.getProduct());
+
+            session.disableFetchProfile("purchase_product");
+
 
             transaction.commit();
         }
@@ -209,9 +217,12 @@ public class RestServiceTest extends JerseyTest {
         try (Session session = factory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
+            session.enableFetchProfile("selling_product");
             sellingFromDb = session.createQuery("from Selling", Selling.class)
                     .getSingleResult();
-            Hibernate.initialize(sellingFromDb.getProduct());
+
+            session.disableFetchProfile("selling_product");
+//            Hibernate.initialize(sellingFromDb.getProduct());
 
             transaction.commit();
         }

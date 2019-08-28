@@ -10,6 +10,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class ClearResourcesFilter implements Filter {
 
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -27,3 +28,4 @@ public class ClearResourcesFilter implements Filter {
         }
     }
 }
+

@@ -10,12 +10,20 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Check;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @ApiModel(description = "Продажа товара")
+@FetchProfile(
+        name = "selling_product",
+        fetchOverrides = {
+                @FetchProfile.FetchOverride(entity = Selling.class, association = "product", mode = FetchMode.JOIN)
+        }
+)
 @Entity
 @Table(name = "selling", indexes = {
         @Index(name = "selling_date_idx", columnList = "selling_date")
