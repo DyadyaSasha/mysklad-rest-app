@@ -22,7 +22,7 @@
         <jackson-datatype-jsr.version>2.10.0.pr1</jackson-datatype-jsr.version>
         <slf4j.version>1.7.28</slf4j.version>
         <mockito.version>3.0.0</mockito.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <jersey-test.version>2.29</jersey-test.version>
     </properties>
 
