@@ -15,7 +15,7 @@
         <jetty.version>9.4.19.v20190610</jetty.version>
         <jersey.version>2.29</jersey.version>
         <h2.version>1.4.199</h2.version>
-        <hibernate.version>5.4.4.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <hibernate-ehcache.version>5.2.13.Final</hibernate-ehcache.version>
         <lombok.version>1.18.8</lombok.version>
         <swagger-jersey2.version>1.5.22</swagger-jersey2.version>
